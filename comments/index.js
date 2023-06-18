@@ -37,6 +37,11 @@ app.get("/posts/:id/comments", (req, res) => {
   res.status(200).send(commentsByPostId[req.params.id] || []);
 });
 
+app.post("/events", (req, res) => {
+  console.log("Event Received", req.body.type);
+  res.send({});
+});
+
 app.listen(port, () => {
   console.log(`The server is listening on port: ${port}`);
 });

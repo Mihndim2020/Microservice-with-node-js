@@ -23,8 +23,9 @@ app.post("/events", async (req, res) => {
         content,
       },
     });
+    console.log("Comment moderated");
   }
-  res.send({ status: OK });
+  res.send({ status: "OK" });
 });
 
 app.listen(port, () => {

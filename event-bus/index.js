@@ -8,6 +8,7 @@ const port = process.env.PORT || 4005;
 
 app.post("/events", (req, res) => {
   const event = req.body;
+  console.log(event.type);
 
   axios
     .post("http://localhost:4000/events", event)

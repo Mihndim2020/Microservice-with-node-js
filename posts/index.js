@@ -9,7 +9,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const port = process.env.PORT || 4000;
 const posts = {};
 
 app.get("/posts", (req, res) => {
@@ -25,7 +24,7 @@ app.post("/posts", async (req, res) => {
   };
 
   await axios
-    .post("http://localhost:4005/events", {
+    .post("http://event-bus-srv:4005/events", {
       type: "PostCreated",
       data: {
         id,
@@ -43,6 +42,7 @@ app.post("/events", (req, res) => {
   res.send({});
 });
 
-app.listen(port, () => {
-  console.log(`The server is listening on port ${port}`);
+app.listen(4000, () => {
+  console.log("v55");
+  console.log("Listening on 4000");
 });

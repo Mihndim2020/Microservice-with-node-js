@@ -2,36 +2,29 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 
-const port = process.env.PORT || 4003;
-
 const app = express();
 app.use(bodyParser.json());
 
 app.post("/events", async (req, res) => {
   const { type, data } = req.body;
-  console.log(`Event receive: ${type}`);
-  const { id, postId, content } = data;
 
-  if (type === "CommnentCreated") {
+  if (type === "CommentCreated") {
     const status = data.content.includes("orange") ? "rejected" : "approved";
 
-    await axios
-      .post("http://localhost:4005/events", {
-        type: "CommentModerated",
-        data: {
-          id,
-          postId,
-          status,
-          content,
-        },
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    await axios.post("http://event-bus-srv:4005/events", {
+      type: "CommentModerated",
+      data: {
+        id: data.id,
+        postId: data.postId,
+        status,
+        content: data.content,
+      },
+    });
   }
-  res.send({ status: "OK" });
+
+  res.send({});
 });
 
-app.listen(port, () => {
-  console.log(`The moderation server is listening on port: ${port}`);
+app.listen(4003, () => {
+  console.log("Listening on 4003");
 });

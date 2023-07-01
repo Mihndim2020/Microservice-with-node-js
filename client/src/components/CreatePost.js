@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const url = "http://posts.com/posts";
+const url = "http://posts.com/posts/create";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
